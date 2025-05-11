@@ -27,6 +27,8 @@ public class Garb {
             map.put(clothes[i][0],clothes[i][1]);
         }
 
+
+
         for (String key : map.keySet()) {
 
         }
