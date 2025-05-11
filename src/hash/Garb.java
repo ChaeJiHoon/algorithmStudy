@@ -13,25 +13,33 @@ public class Garb {
         str[2][0] = "green_turban";
         str[2][1] = "headgear";
 
-        solution(str);
-
+        System.out.println(solution(str));
 
     }
 
 
     public static int solution(String[][] clothes){
-        HashMap<String, String> map = new HashMap<>();
-        int answer =0;
 
-        for(int i=0;i<clothes.length;i++){
-            map.put(clothes[i][0],clothes[i][1]);
+        // 저장을 위한 해시 맵
+        HashMap<String, Integer> map = new HashMap<>();
+
+        //조합 구현을 위해 1로 초기화
+        int answer =1;
+
+        // 의상 종류별로 세기
+        // ex) str[1] : headgear
+        // getOrDefaults(key, drfaultValue) : key-> 찾고자 하는 키, defaultValue-> 해당 키가 없을때 반환할 기본값
+        for (String[] s: clothes) {
+            map.put(s[1], map.getOrDefault(s[1], 0) + 1);
         }
 
-
-
-        for (String key : map.keySet()) {
-
+        // 조합 계산
+        for (String s : map.keySet()) {
+            answer *= (map.get(s) + 1);
         }
+
+        // 아예 안입는 경우의 수 제외
+        answer--;
 
         return answer;
     }
