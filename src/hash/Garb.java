@@ -1,6 +1,9 @@
-package hash;
+// 프로그래머스 Hash
+// 단계 2, 의상
 
+package hash;
 import java.util.HashMap;
+
 
 public class Garb {
     public static void main(String[] args) {
