@@ -1,4 +1,4 @@
-package dfs_bfs;
+package dfs;
 // 백준 실버3 dfs
 // 2606, 바이러스
 

@@ -1,4 +1,4 @@
-package dfs_bfs;
+package dfs;
 // 프로그래머스 타겟 넘버, 단계 2
 // DFS 문제
 

@@ -1,4 +1,4 @@
-package dfs_bfs;
+package dfs;
 
 class WordChange {
     // 문자열을 하나하나 잘라 저장, strArr에는 문자가 하나하나 다 저장된다.
