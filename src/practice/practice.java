@@ -3,18 +3,22 @@ package practice;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class practice {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
+        String str = br.readLine();
 
-        int n = Integer.parseInt(br.readLine());
-        for(int i=0;i<n;i++){
-            String str = br.readLine();
-            sb.append(i+1).append("번째 받은 문자 내용 : ").append(str).append("\n");
+        if(str.equals("SONGDO")){
+            System.out.println("HIGHSCHOOL");
+        }else if(str.equals("CODE")) {
+            System.out.println("MASTER");
+        }else if(str.equals("2023")) {
+            System.out.println("0611");
+        }else{
+            System.out.println("CONTEST");
         }
-        System.out.println(sb);
     }
+
 }
