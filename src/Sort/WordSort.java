@@ -19,6 +19,7 @@ public class WordSort {
 
         String[] strArr = new String[hash.size()];
         String[] ansArr = new String[hash.size()];
+
         int index = 0;
 
         for (String s : hash) {
@@ -26,7 +27,7 @@ public class WordSort {
             index++;
         }
 
-        Arrays.sort(strArr);
+        Arrays.sort(strArr);   // 사전식 배열
 
         index = 0;
 
