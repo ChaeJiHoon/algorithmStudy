@@ -1,5 +1,6 @@
-import java.io.*;
-import java.math.BigInteger;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -7,31 +8,18 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int max = Integer.parseInt(st.nextToken());
-        int min = Integer.parseInt(st.nextToken());
-        int a = 0;
-        int LNum = 0;
-        int GNum = max;
+        int a = Integer.parseInt(st.nextToken());
+        int b = Integer.parseInt(st.nextToken());
 
-        // 최소 최대 구해서 계산을 편하게 하기 위함
-        if(min>max) {
-            a = min;
-            min = max;
-            max = a;
-        }
+        int num = gcd(a,b);
 
-        // 최소공약수 구하기
-        for(int i=1;i<=min;i++){
-            if(min%i==0 && max%i==0) LNum = i;
-        }
-        System.out.println(LNum);
-        
-        // 최대공배수 구하기
-        while(true){
-            if(GNum%max==0 && GNum%min==0) break;
-            GNum++;
-        }
-        System.out.println(GNum);
-
+        System.out.println(num);
+        System.out.println(a*b/num);
     }
+
+    public static int gcd(int a, int b){
+        if(b==0) return a;
+        return gcd(b,a%b);
+    }
+
 }
