@@ -5,7 +5,6 @@ import java.util.Queue;
 import java.util.Scanner;
 
 public class TomaTo {
-    static int cnt = 0;
     static int[][] map;
     static boolean[][] visit;
     static int x_weight;
@@ -16,12 +15,8 @@ public class TomaTo {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int max=0;
-
-
         x_weight = sc.nextInt();
         y_length = sc.nextInt();
-
         sc.nextLine();
 
         map= new int[y_length][x_weight];
@@ -32,7 +27,6 @@ public class TomaTo {
             for(int j=0;j<x_weight;j++){
                 map[i][j] = Integer.parseInt(tomato[j]);
             }
-
         }
 
 
@@ -52,11 +46,10 @@ public class TomaTo {
         System.out.println(check()-1);
 
     }
-    // 0 0 0 0 0 0
+
     static void bfs(int[] arr){
         if(visit[arr[0]][arr[1]]) return;  // 방문 했을 경우 종료
         visit[arr[0]][arr[1]] = true;
-
 
         for(int i=0;i<4;i++){
             int nextX = arr[1] + dx[i];
@@ -73,7 +66,6 @@ public class TomaTo {
 
     static int check(){
         int max = 0;
-
         for(int i=0;i<y_length;i++){
             for(int j=0;j<x_weight;j++){
                 System.out.print(map[i][j] + " ");
