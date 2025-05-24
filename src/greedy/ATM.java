@@ -2,7 +2,7 @@ package greedy;
 // 백준 | 그리디 | 실버4
 // 11399 번 : ATM
 // 시간 제한 : 1초, 메모리 제한 : 256 MB
-
+// 25.05.21
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

@@ -2,7 +2,7 @@ package greedy;
 // 프로그래머스 | 그리디 | Lv.2
 // 탐욕법(Greedy) : 구명 보트
 // 통과 성공
-
+// 25.05.21
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
