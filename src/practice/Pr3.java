@@ -3,18 +3,17 @@ package practice;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 
 public class Pr3 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
-        int n = Integer.parseInt(br.readLine());
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int m = Integer.parseInt(st.nextToken());
+        int k = Integer.parseInt(st.nextToken());
 
-        for(int i=0;i<n;i++){
-            int a = Integer.parseInt(br.readLine());
-            sb.append(a).append(" ").append(a).append("\n");
-        }
-        System.out.println(sb.toString());
+        if(m%k==0) System.out.println("yes");
+        else System.out.println("no");
     }
 }
