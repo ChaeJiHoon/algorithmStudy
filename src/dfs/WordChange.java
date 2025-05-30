@@ -1,93 +1,69 @@
 package dfs;
-
+// 프로그래머스 | dfs_bfs | 레벨 3
+// 알고리즘 키트 : 단어 변환
+// 25.05.29
 class WordChange {
-    // 문자열을 하나하나 잘라 저장, strArr에는 문자가 하나하나 다 저장된다.
-    static String [][] strArr;
+    public static void main(String[] args) {
+        String[] words = {"hot", "dot", "dog", "lot", "log", "cog"};
+        System.out.println(Solution.solution("hit", "cog", words));
+    }
+}
 
-    // 방문 배열
-    static boolean[] visited;
+class Solution {
 
-    // 단어 길이 저장 배열
-    static int n;
-    static int wN;
+    static String[] wordsArr;
+    static int answer = 0;
 
-    static int count = 0;
-    static int answer=0;
-
-    public int wordChange(String begin, String target, String[] words){
-        n = words.length;
-        wN = words[0].length();
-        visited = new boolean[n+1];
-        strArr= new String[n+1][wN];
-
-        //첫 배열은 방문할 필요 없으니
-        visited[0] = true;
-
-        // 처음 문자는 begin 잘라서 넣기
-        strArr[0] = begin.split("");
-
-
-        // 같은 문자가 있는 지 확인
-        for (String word : words) {
-            if(word.equals(target)) {
-                count++;
-            }
+    static int solution(String begin, String target, String[] words) {
+        boolean[] visited = new boolean[words.length];
+        wordsArr = words;
+        answer = wordsArr.length;
+        // 1. target이 words 안에 있는지 판단
+        int cnt = 0;
+        for(String str : words){
+            if(target.equals(str)) break;
+            else cnt++;
         }
-        // count 가 증가하지 않았다면 같은 문자가 없는 거다, 실행 종료
-        if(count==0) return 0;
-        // 아닌 경우 진행
-        count = 0;
+        if(cnt==words.length) return 0; // 없는 경우 반환
 
-        // 그 후 문자는 words의 문자 넣기
-        for(int i=1;i<n+1;i++){
-            String[] str = words[i].split("");
-            for(int j=0;j<wN;j++){
-                strArr[i][j] = str[j];
-            }
-        }
+        dfs(begin, target,0, visited);
 
-        for(int i=1;i<n+1;i++){
-            // i가 num이 같으면 같은 단어니까 넘어감
-            for(int j=0;j<wN;j++){
-                // 문자열을 비교해서 문자가 다르면 count++
-                if(!begin.equals(strArr[i][j])){
-                    count++;
-                }
-            }
-            // count 가 1이라는 소리는 문자가 하나만 다른거니까 바뀔 수 있다
-            if(count==1){
-                count=0;
-                dfs(i);
-            }
-        }
-
+        if(answer== wordsArr.length) return 0;
         return answer;
     }
 
-    public void dfs(int num){
+    // 매개 변수 : 이전 단어, 타겟, dfs 호출 횟수, 이전까지 방문 배열
+    static void dfs(String pre, String target, int count, boolean[] visited){
+        boolean[] newVisited = new boolean[wordsArr.length];
+        for(int i=0;i<wordsArr.length;i++) newVisited[i] = visited[i];
 
-        // 방문한 문자 인경우 종료
-        if(visited[num]) return;
-        visited[num] = true;
+        // 이전 단어와의 비교
+        for(int i=0;i<wordsArr.length;i++){
+            int sCnt = 0;
+            int tCnt = 0;
+            for(int j=0;j<pre.length();j++){
 
-        for(int i=1;i<n+1;i++){
-            // i가 num이 같으면 같은 단어니까 넘어감
-            if(i!=num) continue;
-
-            for(int j=0;j<wN;j++){
-                // 문자열을 비교해서 문자가 다르면 count++
-                if(!strArr[num][j].equals(strArr[i][j])){
-                    count++;
+                // 이전 단어와 몇개 같은지 비교
+                if(pre.charAt(j)==wordsArr[i].charAt(j)) {
+                    sCnt++;
                 }
+                // 이전 단어와 타겟 비교
+                if(pre.charAt(j)==target.charAt(j)) tCnt++;
             }
-            // count 가 1이라는 소리는 문자가 하나만 다른거니까 바뀔 수 있다
-            if(count==1){
-                dfs(i);
+            // 현재 단어와 타겟이 같은 경우
+            // answer 보다 카운트가 작을 경우 반환
+            if(tCnt==wordsArr[i].length()) {
+                if(answer>count) answer = count;
+                return;
             }
+
+            // 현재 단어가 이전 비교 단어와 1개만 다르면서 방문 안한 경우만 호출
+            if(sCnt==wordsArr[i].length()-1 && !newVisited[i]) {
+                newVisited[i] = true;
+                dfs(wordsArr[i], target, ++count, newVisited);
+                count--;
+            }
+
         }
-
-
-
     }
-
 }
