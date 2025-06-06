@@ -1,35 +1,16 @@
 package practice;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.util.*;
+import java.io.*;
 
-public class Pr3 {
-    public static void main(String[] args) throws IOException {
+public class Pr3{
+    public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
+        String str1 = br.readLine();
+        String str2 = br.readLine();
 
-        int n = Integer.parseInt(br.readLine());
-        for(int i=0;i<n;i++){
-             sb.append(br.readLine()).append("\n");
-        }
-
-        int[] arr = new int[n];
-
-        StringTokenizer st = new StringTokenizer(sb.toString(),"\n");
-        for(int i=0;i<n;i++){
-            arr[i] = Integer.parseInt(st.nextToken());
-        }
-
-        Arrays.sort(arr);
-
-        for (int i : arr) {
-            sb.append(i).append("\n");
-        }
-
-        System.out.println(sb.toString().trim());
+        if(str1.length()<str2.length()) System.out.println("no");
+        else System.out.println("go");
 
     }
 }
