@@ -11,6 +11,7 @@ public class Main {
         BufferedReader br  = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
+
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
 
