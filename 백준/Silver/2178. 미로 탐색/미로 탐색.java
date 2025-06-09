@@ -47,17 +47,17 @@ public class Main {
                 int nextY = nowY + dy[i];
 
                 // 하나라도 모서리인 경우 넘어감
-                if(nextX<0 || nextY<0 || nextX >= N || nextY>= M) continue;
+                if(nextX<0 || nextY<0 || nextX >= M || nextY>= N) continue;
                 // 방문했거나, 0 이면 넘어감
-                if(visit[nextX][nextY] || map[nextX][nextY]==0)  continue;
+                if(visit[nextY][nextX] || map[nextY][nextX]==0)  continue;
 
                 // 모든 조건 만족하면
 
                 // 방문 처리
-                visit[nextX][nextY] = true;
+                visit[nextY][nextX] = true;
 
                 // 맵에 이동거리 기록하기
-                map[nextX][nextY] = map[nowX][nowY] +1 ;
+                map[nextY][nextX] = map[nowY][nowX] +1 ;
                 q.add(new int[]{nextX,nextY});
             }
         }
