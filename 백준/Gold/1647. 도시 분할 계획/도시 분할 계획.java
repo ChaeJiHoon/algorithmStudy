@@ -1,24 +1,26 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 public class Main {
 
-    static class Node implements Comparable<Node>{
+    static class Edge implements Comparable<Edge>{
 
+        int from;
         int to;
         int weight;
 
-        Node(int to, int weight){
+        Edge(int from, int to, int weight){
+            this.from = from;
             this.to = to;
             this.weight = weight;
         }
 
         @Override
-        public int compareTo(Node n) {return this.weight - n.weight;}
+        public int compareTo(Edge e) {return this.weight - e.weight;}
     }
 
-    static List<Node>[] city;
-    static boolean[] visited;
+    static List<Edge> city;
+    static int[] parent;
     static int N;
     static int M;
     static int answer = 0;
@@ -32,8 +34,8 @@ public class Main {
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
 
-        city = new ArrayList[N+1];
-        for(int i=0;i<=N;i++) city[i] = new ArrayList<>();
+        city = new ArrayList<>();
+        parent = new int[N+1];
 
         for(int i=0;i<M;i++){
             st = new StringTokenizer(br.readLine());
@@ -41,35 +43,36 @@ public class Main {
             int B = Integer.parseInt(st.nextToken());
             int C = Integer.parseInt(st.nextToken());
 
-            city[A].add(new Node(B,C));
-            city[B].add(new Node(A,C));
+            city.add(new Edge(A,B,C));
         }
 
-        prim(1);
+        Collections.sort(city);
 
-        System.out.println(answer - max_weight);
-    }
+        for(int i=0;i<=N;i++) parent[i] = i;
 
-    static void prim(int start){
-        PriorityQueue<Node> pq = new PriorityQueue<>();
-        visited = new boolean[N+1];
-        pq.add(new Node(start, 0));
+        int answer = 0;
+        int max = 0;
 
-        while(!pq.isEmpty()){
-            Node current = pq.poll();
-
-            if(visited[current.to]) continue;
-
-            visited[current.to] = true;
-            answer += current.weight;
-            max_weight = Math.max(current.weight,max_weight);
-
-            for(Node node : city[current.to]){
-                if(!visited[node.to]) {
-                    pq.offer(node);
-                }
+        for(Edge edge : city){
+            if(find(edge.from) != find(edge.to)){
+                union(edge.from, edge.to);
+                answer += edge.weight;
+                max = Math.max(max, edge.weight);
             }
         }
 
+        System.out.println(answer - max);
+    }
+
+    static int find(int x){
+        if(parent[x] == x) return x;
+        return parent[x] = find(parent[x]);
+    }
+
+    static void union(int a, int b){
+        a = find(a);
+        b = find(b);
+
+        if(a != b) parent[b] = a;
     }
 }
