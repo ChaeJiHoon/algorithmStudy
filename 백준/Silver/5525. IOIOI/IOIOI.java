@@ -1,39 +1,35 @@
-import java.util.*;
 import java.io.*;
 
 public class Main {
 
     static int N,M;
-    static String S, PN;
 
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
 
         N = Integer.parseInt(br.readLine());
         M = Integer.parseInt(br.readLine());
-        S = br.readLine();
-
-        PN = makingN(N);
+        String S = br.readLine();
 
         int answer = 0;
-        int pnLength = PN.length();
+        int count = 0;
+        int i=1;
 
-        for(int i=0;i<=M-pnLength;i++) if(check(i, pnLength)) answer++;
-
+        while(i<M-1){
+            // "IOI" 패턴 발견
+            if(S.charAt(i-1)=='I'&&S.charAt(i)=='O'&&S.charAt(i+1)=='I'){
+                count++; // OI 쌍 하나 발견
+                if(count == N) {
+                    answer++;
+                    count--; // 겹치는 경우 고려
+                }
+                i+=2; // 다음 'I'부터 확인
+            }else{
+                count = 0;
+                i++;
+            }
+        }
         System.out.println(answer);
     }
 
-    static String makingN(int n){
-        StringBuilder s = new StringBuilder();
-        s.append("I");
-
-        for(int i=0;i<N;i++) s.append("OI");
-
-        return s.toString();
-    }
-
-    static boolean check(int start, int pnL){
-        return S.substring(start,start+pnL).equals(PN);
-    }
 }
