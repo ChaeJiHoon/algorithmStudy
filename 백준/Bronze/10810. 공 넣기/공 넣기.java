@@ -1,12 +1,11 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
+        StringBuilder sb = new StringBuilder();
 
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
@@ -18,13 +17,10 @@ public class Main {
             int a = Integer.parseInt(num.nextToken());
             int b = Integer.parseInt(num.nextToken());
             int c = Integer.parseInt(num.nextToken());
-            for(int j=a;j<=b;j++){
-                arr[j] = c;
-            }
+            for(int j=a;j<=b;j++)arr[j] = c;
         }
-        for(int i=1;i<arr.length;i++){
-            if(i==arr.length-1) System.out.print(arr[i]);
-            else System.out.print(arr[i]+ " ");
-        }
+        
+        for(int i=1;i<arr.length;i++) sb.append(arr[i]).append(" ");
+        System.out.print(sb.toString().trim());
     }
 }
