@@ -55,41 +55,29 @@ public class Main {
                 if(map[ny][nx] == 0) {hasDirty = true; break;}
             }
 
-            if(hasDirty){
-                // 왼쪽부터 4번 탐색
-                int nd = dir;
-                for (int i = 0; i < 4; i++) {
-                    nd = direction(nd); // 왼쪽으로 회전
-                    int ny = y+dy[nd];
-                    int nx = x+dx[nd];
-                    if(ny<0||nx<0||ny>=n||nx>=m) continue;
-
-                    // 청소 안 된 칸 발견 -> 그 칸으로 전진(방향은 nd 유지)
-                    if(map[ny][nx]==0){
-                        q.add(new int[]{ny, nx, nd});
-                        break;
-                    }
-
-                    // 못 가면 다음 회전
-                    if(i==3){
-                        // 네 방향 모두 못 갔으면, 바로 뒤로 가보기 (아래 else 분기와 동일 결과)
-                        int back = (dir+2)%4;     //  이게 킥
-                        int by = y+dy[back];
-                        int bx = x+dx[back];
-                        if (by<0||bx<0||by>=n||bx>=m||map[by][bx] == 1) return; // 뒤가 벽이면 종료
-                        q.add(new int[]{by, bx, dir}); // 방향 유지하고 후진
-                    }
+            //왼쪽부터 4방향 탐색하여 청소할 곳 찾기
+            boolean moved = false;
+            int nd = dir;
+            for (int t = 0; t < 4; t++) {
+                nd = direction(nd);                 // 왼쪽으로 회전
+                int ny = y + dy[nd], nx = x + dx[nd];
+                if (ny < 0 || nx < 0 || ny >= n || nx >= m) continue;
+                if (map[ny][nx] == 0) {            // 아직 청소 안 된 칸 발견
+                    q.add(new int[]{ny, nx, nd});  // 그쪽으로 전진
+                    moved = true;
+                    break;
                 }
-            } else {
-                // 2. 주변에 청소할 칸이 없으면 후진 (벽만 아니면 가능)
-                int back = (dir+2)%4;
-                int ny = y + dy[back];
-                int nx = x + dx[back];
-                if (ny<0 || nx<0 || ny>=n || nx>=m || map[ny][nx] == 1) {
-                    // 뒤가 벽이면 멈춤
+            }
+
+            if (!moved) {
+                // 2) 네 방향 모두 못 갔으면 후진 (방향 유지)
+                int back = (dir + 2) % 4;
+                int by = y + dy[back], bx = x + dx[back];
+                if (by < 0 || bx < 0 || by >= n || bx >= m || map[by][bx] == 1) {
+                    // 뒤가 벽이면 작동 종료
                     return;
                 }
-                q.add(new int[]{ny, nx, dir}); // 방향 유지하고 후진
+                q.add(new int[]{by, bx, dir}); // 후진 (방향 유지)
             }
         }
     }
