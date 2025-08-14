@@ -1,22 +1,26 @@
 import java.io.*;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args)throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        int n = Integer.parseInt(br.readLine());
-        long[] dp = new long[n+1];
+        int N = Integer.parseInt(br.readLine());
 
-        if(n==1) {
-            System.out.print(1);
-            return;
+        if(N==1) bw.write(1 % 15746 + "\n");
+        else if (N==2) bw.write(2 % 15746 + "\n");
+        else{
+            int a=1, b=2, num=0;
+            for (int i=2; i<N;i++) {
+                num = (a+b) % 15746;
+                a = b;
+                b = num;
+            }
+            bw.write(num +"");
         }
 
-        dp[1] = 1L;
-        dp[2] = 2L;
-
-        for(int i=3;i<=n;i++) dp[i] = (dp[i-1]+dp[i-2])%15746;
-
-        System.out.print(dp[n]%15746L);
+        bw.flush();
+        bw.close();
+        br.close();
     }
 }
