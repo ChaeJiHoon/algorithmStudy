@@ -1,40 +1,29 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
         HashMap<Integer,Integer> map = new HashMap<>();
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        HashSet<Integer> set = new HashSet<>();
 
         int N = Integer.parseInt(br.readLine());
         int[] arr = new int[N];
 
         StringTokenizer st = new StringTokenizer(br.readLine());
-        for(int i=0;i<N;i++){
+        for(int i=0;i<N;i++) {
             int num = Integer.parseInt(st.nextToken());
-
+            set.add(num);
             arr[i] = num;
-            map.put(num,0);
-            pq.add(num);
         }
 
-        int pre = pq.poll();
-        int index = 0;
-        map.put(pre,index);
+        List<Integer> list = new ArrayList<>(set);
+        Collections.sort(list);
 
-        while(!pq.isEmpty()){
-            int now = pq.poll();
-            if(pre == now) pre = now;
-            else{
-                map.put(now,++index);
-                pre = now;
-            }
-        }
+        for(int i=0;i<list.size();i++) map.put(list.get(i),i);
+        for(int i=0;i<N;i++) sb.append(map.get(arr[i])).append(" ");
 
-        for(int i : arr) sb.append(map.get(i)).append(" ");
-
-        System.out.println(sb.toString().trim());
+        System.out.print(sb.toString().trim());
     }
 }
