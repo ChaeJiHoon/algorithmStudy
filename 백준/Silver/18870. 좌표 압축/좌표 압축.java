@@ -6,23 +6,26 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
         HashMap<Integer,Integer> map = new HashMap<>();
-        HashSet<Integer> set = new HashSet<>();
 
         int N = Integer.parseInt(br.readLine());
         int[] arr = new int[N];
+        int[] answer = new int[N];
 
         StringTokenizer st = new StringTokenizer(br.readLine());
         for(int i=0;i<N;i++) {
             int num = Integer.parseInt(st.nextToken());
-            set.add(num);
             arr[i] = num;
+            answer[i] = num;
         }
 
-        List<Integer> list = new ArrayList<>(set);
-        Collections.sort(list);
+        Arrays.sort(arr);
 
-        for(int i=0;i<list.size();i++) map.put(list.get(i),i);
-        for(int i=0;i<N;i++) sb.append(map.get(arr[i])).append(" ");
+        int index = 0;
+        for(int i=0;i<N;i++){
+            if (!map.containsKey(arr[i])) map.put(arr[i],index++);
+        }
+
+        for(int i=0;i<N;i++) sb.append(map.get(answer[i])).append(" ");
 
         System.out.print(sb.toString().trim());
     }
