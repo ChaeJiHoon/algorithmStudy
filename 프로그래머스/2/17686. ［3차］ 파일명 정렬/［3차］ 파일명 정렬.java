@@ -27,25 +27,20 @@ class Solution {
             String number = str.substring(start,finish+1);
             String tail = str.substring(finish+1,str.length());
             
-            fn[index] = new FileName(head, number, tail, index);
+            fn[index] = new FileName(str, head, number, tail, index);
             index++;
         }
         
         Arrays.sort(fn);
-        
-        StringBuilder sb;
         String[] answer = new String[fn.length];
-        for(int i=0;i<fn.length;i++){
-            sb = new StringBuilder();
-            sb.append(fn[i].head).append(fn[i].number).append(fn[i].tail);
-            answer[i] = sb.toString();
-        }
-
         
+        for(int i=0;i<fn.length;i++) answer[i] = fn[i].origin;
+            
         return answer;
     }
     
     static class FileName implements Comparable<FileName>{
+        String origin;
         String head;
         String hl;
         String number;
@@ -53,7 +48,8 @@ class Solution {
         String tail;
         int idx;
         
-        FileName(String head, String number, String tail,int idx){
+        FileName(String origin, String head, String number, String tail,int idx){
+            this.origin = origin;
             this.head = head;
             this.number = number;
             this.tail = tail;
