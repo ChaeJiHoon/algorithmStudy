@@ -1,16 +1,15 @@
 import java.util.*;
 
 class Solution {
-    static ArrayList<Long> numList = new ArrayList<>();
-    static ArrayList<String> operatorList = new ArrayList<>();
+    static ArrayList<Long> numList;
+    static ArrayList<String> operatorList;
     static ArrayList<String> op;          // 등장한 연산자들
     static boolean[] checked;
-    static long max = 0;
+    static long max;
 
     public long solution(String expression) {
-        // ★ 호출 간 전역 초기화
-        numList.clear();
-        operatorList.clear();
+        numList = new ArrayList<>();
+        operatorList = new ArrayList<>();
         max = 0;
 
         // 숫자 파싱 (정규식으로 연산자 자리를 공백으로)
@@ -58,17 +57,17 @@ class Solution {
     static void applyOperator(String oper, ArrayList<Long> nums, ArrayList<String> ops) {
         int idx = 0;
         while(idx<ops.size()){
-            if (ops.get(idx).equals(oper)) {
+            if (ops.get(idx).equals(oper)){
                 long a = nums.get(idx);
-                long b = nums.get(idx + 1);
+                long b = nums.get(idx+1);
                 long res;
-                if(oper.equals("*")) res = a * b;
-                else if (oper.equals("-")) res = a - b;
-                else res = a + b;
+                if(oper.equals("*")) res = a*b;
+                else if (oper.equals("-")) res = a-b;
+                else res = a+b;
 
                 // 현재 idx에 res 덮어쓰고, 오른쪽 숫자/연산자 제거 → 리스트 축소
                 nums.set(idx, res);
-                nums.remove(idx + 1);
+                nums.remove(idx+1);
                 ops.remove(idx);
             }else idx++;
         }
